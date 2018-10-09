@@ -9,6 +9,7 @@ from unittest.mock import Mock, patch
 
 from aiohttp import ClientConnectionError, ClientResponse, ClientSession, hdrs
 from aiohttp.helpers import TimerNoop
+from aiohttp.payload import Payload
 from multidict import CIMultiDict
 
 from .compat import (
@@ -45,7 +46,7 @@ class RequestMatch(object):
         self.status = status
         if payload is not None:
             body = json.dumps(payload)
-        if not isinstance(body, bytes):
+        if not isinstance(body, Payload) and not isinstance(body, bytes):
             body = str.encode(body)
         self.body = body
         self.exception = exception

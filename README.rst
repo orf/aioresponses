@@ -213,17 +213,17 @@ for convenience use *payload* argument to mock out json response. Example below.
         assert resp.status == 418
 
 
-**aioresponses can be used in a pytest fixture**
+**aioresponses also provides an aioresponse pytest fixture**
 
 .. code:: python
 
-    import pytest
-    from aioresponses import aioresponses
-
-    @pytest.fixture
-    def mock_aioresponse():
-        with aioresponses() as m:
-            yield m
+    def test_something(aioresponse):
+        aioresponse.post(
+            'http://example.com',
+            payload=dict(),
+            headers=dict(connection='keep-alive'),
+        )
+        ...
 
 
 Features
